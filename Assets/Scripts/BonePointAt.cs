@@ -15,15 +15,21 @@ public enum Axis
 
 public class BonePointAt : MonoBehaviour
 {
+
+    public bool lockAxisX = false;
+    public bool lockAxisY = false;
+    public bool lockAxisZ = false;
+
     public Axis aimOrientation;
 
     private Quaternion startRotation;
-
+    private Quaternion goalRotation;
     private PlayerTargeting playerTargeting;
 
     void Start()
     {
         playerTargeting = GetComponentInParent<PlayerTargeting>();
+        startRotation = transform.localRotation;
     }
 
     // Update is called once per frame
@@ -37,20 +43,33 @@ public class BonePointAt : MonoBehaviour
         if (playerTargeting && playerTargeting.target && playerTargeting.playerWantsToAim)
         {
             Vector3 vToTarget = playerTargeting.target.transform.position - transform.position;
-            Vector3 fromVector = Vector3.forward;
-            switch (aimOrientation)
+            vToTarget.Normalize();
+            Quaternion worldRot = Quaternion.LookRotation(vToTarget, Vector3.up);
+            Quaternion prevRot = transform.rotation;
+            Vector3 eulerBefore = transform.localEulerAngles;
+            transform.rotation = worldRot;
+            Vector3 eulerAfter = transform.localEulerAngles;
+            transform.rotation = prevRot;
+
+
+            /*Quaternion localRot = worldRot;
+            if (transform.parent)
             {
-                case Axis.Forward: fromVector = Vector3.forward; break;
-                case Axis.Backward: fromVector = Vector3.back; break;
-                case Axis.Right: fromVector = Vector3.right; break;
-                case Axis.Left: fromVector = Vector3.left; break;
-                case Axis.Up: fromVector = Vector3.up; break;
-                case Axis.Down: fromVector = Vector3.down; break;
-            }
-            transform.rotation = Quaternion.FromToRotation(Vector3.down, vToTarget);
+                localRot = Quaternion.Inverse(transform.parent.rotation) * worldRot;
+            }*/
+            //Vector3 euler = localRot.eulerAngles;
+
+            if (lockAxisX) eulerAfter.y = eulerBefore.x;
+            if (lockAxisX) eulerAfter.x = eulerBefore.y;
+            if (lockAxisX) eulerAfter.z = eulerBefore.z;
+            goalRotation = Quaternion.Euler(eulerAfter);
+            //localRot.eulerAngles = euler;
+            //goalRotation = localRot;
         } else
         {
-            transform.localRotation = startRotation;
+            goalRotation = startRotation;
         }
+
+        transform.localRotation = AnimMath.Ease(transform.localRotation, goalRotation, .001f);
     }
 }
