@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform boneLegRight;
     public Transform boneHip;
     public Transform boneSpine;
-    public float walkSpeed;
+    public float walkSpeed = 5;
     [Range(-10, -1)]
     public float gravity = -1;
     public Camera cam;

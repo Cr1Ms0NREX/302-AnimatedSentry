@@ -24,6 +24,5 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         if (navTarget) agent.destination = navTarget.transform.position;
-        pawn.SimpleMove(Vector3.zero);
     }
 }

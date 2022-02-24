@@ -37,6 +37,7 @@ public class PlayerTargeting : MonoBehaviour
 
         cooldownScan -= Time.deltaTime;
         cooldownPickTarget -= Time.deltaTime;
+        cooldownAttack -= Time.deltaTime;
 
         if (playerWantsToAim)
         {
@@ -77,6 +78,7 @@ public class PlayerTargeting : MonoBehaviour
 
         boneShoulderLeft.transform.localEulerAngles += new Vector3(-30, 0, 0);
         boneShoulderRight.transform.localEulerAngles += new Vector3(-30, 0, 0);
+        print("HelloWorld");
         if (cam) cam.Shake(.25f);
     }
     void ScanForTargets()
@@ -102,7 +104,7 @@ public class PlayerTargeting : MonoBehaviour
         // How much is in front of player?
         float alignment = Vector3.Dot(transform.forward, vToThing.normalized);
         // is within <180 degrees of forward
-        if (alignment > .4f) return false;
+        if (alignment < .4f) return false;
         // check for occlusion...
         Ray ray = new Ray();
         ray.origin = transform.position;

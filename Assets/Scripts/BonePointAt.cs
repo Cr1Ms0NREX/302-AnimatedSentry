@@ -45,7 +45,7 @@ public class BonePointAt : MonoBehaviour
         //if (playerTargeting && playerTargeting.target && playerTargeting.playerWantsToAim)
         if(target != null)
         {
-            Vector3 vToTarget = playerTargeting.target.transform.position - transform.position;
+            Vector3 vToTarget = target.position - transform.position;
             vToTarget.Normalize();
             Quaternion worldRot = Quaternion.LookRotation(vToTarget, Vector3.up);
             Quaternion localRot = worldRot;
@@ -56,8 +56,8 @@ public class BonePointAt : MonoBehaviour
             }
             Vector3 euler = localRot.eulerAngles;
             if (lockAxisX) euler.x = startRotation.eulerAngles.x;
-            if (lockAxisX) euler.y = startRotation.eulerAngles.y;
-            if (lockAxisX) euler.z = startRotation.eulerAngles.z;
+            if (lockAxisY) euler.y = startRotation.eulerAngles.y;
+            if (lockAxisZ) euler.z = startRotation.eulerAngles.z;
             localRot.eulerAngles = euler;
             goalRotation = localRot;
 

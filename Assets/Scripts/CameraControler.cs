@@ -63,9 +63,7 @@ public class CameraControler : MonoBehaviour
             yaw += mx * mouseSenseX;
             pitch += my * mouseSenseY;
             
-            
-            
-            pitch = Mathf.Clamp(pitch, -20, 89);
+            pitch = Mathf.Clamp(pitch, -10, 89);
             transform.rotation = AnimMath.Ease(transform.rotation, Quaternion.Euler(pitch, yaw, 0), .001f);
         }
         
