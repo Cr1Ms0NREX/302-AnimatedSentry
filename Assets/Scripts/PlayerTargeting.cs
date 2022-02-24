@@ -10,8 +10,8 @@ public class PlayerTargeting : MonoBehaviour
     [Range(1, 20)]
     public int roundsPerSecond = 5;
 
-    public Transform boneShoulderRight;
-    public Transform boneShoulderLeft;
+    public BonePointAt boneShoulderRight;
+    public BonePointAt boneShoulderLeft;
 
     public TargetableObjects target { get; private set; }
     public bool playerWantsToAim { get; private set; }
@@ -21,6 +21,14 @@ public class PlayerTargeting : MonoBehaviour
     private float cooldownScan = 0;
     private float cooldownPickTarget = 0;
     private float cooldownAttack = 0;
+
+    private CameraControler cam;
+
+    private void Start()
+    {
+        cam = FindObjectOfType<CameraControler>();
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     void Update()
     {
@@ -34,11 +42,12 @@ public class PlayerTargeting : MonoBehaviour
         {
             if (target != null)
             {
-                if (!CanSeeThing(target))
+                Vector3 toTarget = target.transform.position - transform.position;
+                toTarget.y = 0;
+                if (toTarget.magnitude > 3 && !CanSeeThing(target))
                 {
                     target = null;
                 }
-
             }
             if (cooldownScan <= 0) ScanForTargets();
             if (cooldownPickTarget <= 0) PickATarget();
@@ -47,6 +56,9 @@ public class PlayerTargeting : MonoBehaviour
         {
             target = null;
         }
+        if(boneShoulderLeft) boneShoulderLeft.target = target ? target.transform : null;
+        if(boneShoulderRight) boneShoulderRight.target = target ? target.transform : null;
+
         DoAttack();
     }
 
@@ -63,9 +75,9 @@ public class PlayerTargeting : MonoBehaviour
         // Spawn Projectiles...
         // Damage Health
 
-        boneShoulderLeft.localEulerAngles += new Vector3(-30, 0, 0);
-        boneShoulderRight.localEulerAngles += new Vector3(-30, 0, 0);
-
+        boneShoulderLeft.transform.localEulerAngles += new Vector3(-30, 0, 0);
+        boneShoulderRight.transform.localEulerAngles += new Vector3(-30, 0, 0);
+        if (cam) cam.Shake(.25f);
     }
     void ScanForTargets()
     {
@@ -91,6 +103,27 @@ public class PlayerTargeting : MonoBehaviour
         float alignment = Vector3.Dot(transform.forward, vToThing.normalized);
         // is within <180 degrees of forward
         if (alignment > .4f) return false;
+        // check for occlusion...
+        Ray ray = new Ray();
+        ray.origin = transform.position;
+        ray.direction = vToThing;
+        Debug.DrawRay(ray.origin, ray.direction * visionDistance, Color.red);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, visionDistance))
+        {
+            bool canSee = false;
+            Transform xform = hit.transform;
+            do
+            {
+                if (xform.gameObject == thing.gameObject)
+                {
+                    canSee = true;
+                    break;
+                }
+                xform = xform.parent;
+            } while (xform != null);
+            if (!canSee) return false;
+        }
         return true;
     }
 
