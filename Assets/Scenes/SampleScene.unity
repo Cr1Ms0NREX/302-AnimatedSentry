@@ -5667,12 +5667,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433433416}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd69d14337e52784fb8e75f0e827820f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 8245821014150072593, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
+  objectToSpawn: {fileID: 0}
   timeToSpawn: 2
 --- !u!4 &433433418
 Transform:
@@ -17578,7 +17578,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296064938}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd69d14337e52784fb8e75f0e827820f, type: 3}
   m_Name: 
@@ -25676,7 +25676,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854450054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd69d14337e52784fb8e75f0e827820f, type: 3}
   m_Name: 
@@ -27426,12 +27426,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965705307}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd69d14337e52784fb8e75f0e827820f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 8245821014150072593, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
+  objectToSpawn: {fileID: 0}
   timeToSpawn: 2
 --- !u!4 &1965705309
 Transform:
@@ -30462,6 +30462,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2384181241437348701, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6464169527031562555, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -30474,6 +30478,22 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1143751746}
+    - target: {fileID: 6464169528451769008, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464169528451769008, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464169528451769011, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
+      propertyPath: m_Radius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464169528451769012, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
+      propertyPath: m_Speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6464169528451769022, guid: ab2b1b1c819ae3c4d9b159f6df8c0177, type: 3}
       propertyPath: target
       value: 

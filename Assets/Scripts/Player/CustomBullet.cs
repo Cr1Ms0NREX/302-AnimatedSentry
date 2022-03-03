@@ -88,16 +88,17 @@ public class CustomBullet : MonoBehaviour
         Destroy(explosion);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         //Don't count collisions with other bullets
-        if (collision.collider.CompareTag("Bullet")) return;
-
+        if (collision.CompareTag("Bullet")) return;
+        print("bullethit");
+        print(collision.gameObject);
         //Count up collisions
         collisions++;
 
         //Explode if bullet hits an enemy directly and explodeOnTouch is activated
-        if (collision.collider.CompareTag("Enemy") && explodeOnTouch) Explode();
+        if (collision.CompareTag("Enemy") && explodeOnTouch) Explode();
     }
     private void Setup()
     {

@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
     {
         //pawn = GetComponent<CharacterController>();
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = 10;
+        agent.speed = 2;
         
         PlayerTargeting player = FindObjectOfType<PlayerTargeting>();
         navTarget = player.transform;
