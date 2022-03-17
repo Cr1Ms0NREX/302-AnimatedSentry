@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -30,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+        public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
